@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>唐莉佳生诞快乐！</title>
+    <script>
+        function getAttr(attr_name)
+        {
+            var local_url = document.location.href;
+            var attr_val_idx = local_url.indexOf(attr_name +"=");
+            if(attr_val_idx == -1)
+            {
+                return -1;
+            }
+            var attr_val = local_url.slice(attr_name.length + attr_val_idx + 1);
+            var next_attr = attr_val.indexOf("&");
+            if(next_attr != -1)
+            {
+                attr_val = attr_val.slice(0, next_attr);
+            }
+            return attr_val;
+        }
+        function set_page(page_idx)
+        {
+            document.location.href = document.location.protocol + '//' + document.location.host + document.location.pathname + '?page=' + page_idx;
+            return true;
+        }
+        function show_page(page_idx)
+        {
+            var filename_list = ['ygxdxx_tlj', 'yesok_tlj'];
+            if(page_idx < 0) return !set_page(0);
+            else if(page_idx >= filename_list.length) return !set_page(filename_list.length - 1);
+            var mp3_source = document.getElementById('mp3_source');
+            var ogg_source = document.getElementById('ogg_source');
+            mp3_source.src = 'audio/mpeg/' + filename_list[page_idx] + '.mp3';
+            ogg_source.src = 'audio/ogg/' + filename_list[page_idx] + '.ogg';
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <audio controls>
+        <source id="mp3_source" src="audio/mpeg/ygxdxx_tlj.mp3" type="audio/mpeg">
+        <source id="ogg_source" src="audio/ogg/ygxdxx_tlj.ogg" type="audio/ogg">
+        hi，小糖人，你的浏览器暂不支持该音频格式，请更换浏览器后再试哦！
+    </audio>
+    <script>
+        show_page(getAttr('page'));
+    </script>
+</body>
+</html>
